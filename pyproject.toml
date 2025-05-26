@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "VIB"
+version = "0.1.0"
+description = "A simple implementation of the paper \"Deep Variational Information Bottleneck\""
+authors = [
+    { name="Fahmy Adan", email="adanfahmy@gmail.com" }
+]
+readme = "README.md"
+license = "MIT AND (Apache-2.0 OR BSD-2-Clause)"
+requires-python = ">=3.10"
+
+dependencies = [
+    "requests>=2.31.0",
+    "torch==2.6.0",
+    "torchvision==0.21.0",
+    "pytorch-lightning", 
+    "PyYAML", 
+    "wandb", 
+    "hydra-core"
+
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

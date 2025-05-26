@@ -1,0 +1,3 @@
+src/VAEs/*
+src/VIB.egg-info
+src/VIB/__pycache__/*
