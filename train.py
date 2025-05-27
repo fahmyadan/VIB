@@ -9,6 +9,7 @@ import pytorch_lightning as pl
 import hydra
 from omegaconf import DictConfig, OmegaConf
 from src.VIB import VIB
+from src.lightning import ImageNetDataModule
 
 
 def get_args():
@@ -51,8 +52,12 @@ def train(cfg: DictConfig):
     # Example usage
     device = torch.device('cuda'if torch.cuda.is_available() else "cpu")
     # TODO: Add actual training logic here...
-    model = VIB(**cfg.model.model_params)
-    print('check')
+    model = VIB(model_params=cfg.model.model_params, opt_params=cfg.model.exp_params)
+
+    datamodule = ImageNetDataModule(debug=True, **cfg.model.data_params)
+    trainer = pl.Trainer(**cfg.trainer_params)
+
+    trainer.fit(model=model, datamodule=datamodule)
 
     
 
