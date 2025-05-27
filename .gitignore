@@ -1,3 +1,5 @@
 src/VAEs/*
 src/VIB.egg-info
 src/VIB/__pycache__/*
+*.pyc
+
