@@ -9,7 +9,7 @@ import pytorch_lightning as pl
 import hydra
 from omegaconf import DictConfig, OmegaConf
 from src.VIB import VIB
-from src.lightning import ImageNetDataModule
+from src.lightning import MNISTDataModule
 
 
 def get_args():
@@ -54,7 +54,7 @@ def train(cfg: DictConfig):
     # TODO: Add actual training logic here...
     model = VIB(model_params=cfg.model.model_params, opt_params=cfg.model.exp_params)
 
-    datamodule = ImageNetDataModule(debug=True, **cfg.model.data_params)
+    datamodule = MNISTDataModule(debug=True, **cfg.model.data_params)
     trainer = pl.Trainer(**cfg.trainer_params)
 
     trainer.fit(model=model, datamodule=datamodule)

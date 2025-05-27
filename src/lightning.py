@@ -4,7 +4,25 @@ from torch.utils.data import DataLoader, TensorDataset
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 import pytorch_lightning as pl
+from torchvision.datasets import MNIST
 import torch
+
+
+class MNISTDataModule(pl.LightningDataModule):
+    def __init__(self, batch_size=64):
+        super().__init__()
+        self.batch_size = batch_size
+        self.transform = transforms.ToTensor()
+
+    def setup(self, stage=None):
+        self.mnist_train = MNIST(root=".", train=True, download=True, transform=self.transform)
+        self.mnist_val = MNIST(root=".", train=False, download=True, transform=self.transform)
+
+    def train_dataloader(self):
+        return DataLoader(self.mnist_train, batch_size=self.batch_size, shuffle=True)
+
+    def val_dataloader(self):
+        return DataLoader(self.mnist_val, batch_size=self.batch_size)
 
 class ImageNetDataModule(pl.LightningDataModule):
     def __init__(
